@@ -2,15 +2,10 @@
 #include <string.h>
 #include <stdlib.h>
 int main () {
-
-
-
-	char* commandBuffer = malloc(256);
-	char* currentSegment = malloc(256);
-	fgets(commandBuffer, 255, stdin);
-	while(currentSegment = strsep(&commandBuffer, " ")){
-		printf("%s \n", currentSegment);
-
+	char* inputBuffer = (char*) malloc(256);
+	fgets(inputBuffer, 255, stdin);
+    char* commandBuffer = inputBuffer;
+	while((commandBuffer = strsep(&inputBuffer, ";"))){
+		//function to execute a command
 	}
-
 }
