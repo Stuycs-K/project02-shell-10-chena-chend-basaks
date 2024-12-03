@@ -10,7 +10,6 @@ int main () {
 	while((commandBuffer = strsep(&inputBuffer, ";"))){
 		//function to execute a command
         executeCommand(commandBuffer);
+				
 	}
 }
-
-
