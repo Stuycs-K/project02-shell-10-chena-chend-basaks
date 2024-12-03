@@ -4,10 +4,10 @@
 int main () {
 	char* inputBuffer = (char*) malloc(256);
 	fgets(inputBuffer, 255, stdin);
-    char* commandBuffer = (char*) malloc(256);
+    char* commandBuffer;
 	while((commandBuffer = strsep(&inputBuffer, ";"))){
 		//function to execute a command
-		char* tokenBuffer = (char*) malloc(256);
+		char* tokenBuffer;
 		while(tokenBuffer  = strsep(&commandBuffer, " ")){
 			printf("%s \n", tokenBuffer); 
 
