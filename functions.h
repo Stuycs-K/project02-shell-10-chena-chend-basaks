@@ -1,7 +1,8 @@
 #ifndef FUNCTIONS_H
 #define FUNCTIONS_H
-void executeCommand(char *command);
-char *redirectStdout(char *command, char *output);
-char *redirectStdin(char *command, char *input);
+void parseArgs(char *line, char **args);
+void executeCommand(char *command, int input, int output);
+char *redirectStdout(char *command, int *output);
+char *redirectStdin(char *command, int *input);
 void pipe(char *a, char *b);
 #endif
