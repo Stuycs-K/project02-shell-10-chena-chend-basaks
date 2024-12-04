@@ -1,6 +1,8 @@
-.PHONY: compile clean
+.PHONY: run compile clean
 
-compile: main.o functions.o
+run: shell
+	@./shell
+compile shell: main.o functions.o
 	@gcc -o shell main.o functions.o
 main.o: main.c
 	@gcc -c main.c

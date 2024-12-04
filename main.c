@@ -1,16 +1,18 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <unistd.h>
+#include <fcntl.h>
 #include "functions.h"
 
 int main () {
-	char* inputBuffer = (char*) malloc(256);
+	/*char* inputBuffer = (char*) malloc(256);
 	fgets(inputBuffer, 255, stdin);
     char* commandBuffer;
 	while((commandBuffer = strsep(&inputBuffer, ";"))){
-		//function to execute a command
-        executeCommand(commandBuffer);
-	}
+        //executeCommand(commandBuffer);
+	}*/
+	executeCommand("cat", STDIN_FILENO, STDOUT_FILENO);
 }
 
 
