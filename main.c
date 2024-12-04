@@ -12,7 +12,9 @@ int main () {
 	while((commandBuffer = strsep(&inputBuffer, ";"))){
         //executeCommand(commandBuffer);
 	}*/
-	executeCommand("cat", STDIN_FILENO, STDOUT_FILENO);
+	int inputFile = open("input.txt", O_RDONLY, 0);
+	int outputFile = open("output.txt", O_WRONLY, 0);
+	executeCommand("cat", inputFile, outputFile);
 }
 
 

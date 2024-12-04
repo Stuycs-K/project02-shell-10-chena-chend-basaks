@@ -17,16 +17,16 @@ void parseArgs(char *line, char **args) {
 
 //executing a single command
 void executeCommand(char *command, int input, int output) {
-    //assume input and output are already opened
     char *args[100];
     parseArgs(command, args);
-    //TODO: redirect input and output
     pid_t p = fork();
     if (p == 0) {
+        dup2(input, STDIN_FILENO);
+        dup2(output, STDOUT_FILENO);
         execvp(args[0], args);
     }
     int status;
-    pid_t child = wait(&status);
+    wait(&status);
 }
 
 char *redirectStdout(char *command, char *output) {
