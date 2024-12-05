@@ -34,11 +34,13 @@ char *redirectStdout(char *command, int output){
   executeCommand(command, tempInput, output);
   return output;
 }
-char *redirectStdin(char *command, int *input){
+char *redirectStdin(char *command, int input){
   int tempOutput = -1;
   executeCommand(command, input, tempOutput);
   return input;
 }
-void pipe(char *a, char *b){
-
+void pipe(char *command1, char *command2, int outputfile){
+  int tempfile = open("temp.txt", O_RDWR | O_CREAT, 0644);
+  redirectStdout(command1, tempfile);
+  redirectStdin(command2, outputfile);
 }
