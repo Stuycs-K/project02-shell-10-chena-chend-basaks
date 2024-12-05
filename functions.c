@@ -4,17 +4,8 @@
 #include <unistd.h>
 #include <errno.h>
 #include <sys/wait.h>
+#include <ctype.h>
 #include "functions.h"
-
-void readCommand(char *command) {
-    //piping:
-//    int p[2];
-//    pipe(p);
-    //pass fd[1] into output parameter of first command
-    //pass fd[0] into input parameter of second command
-    char *command2 = strsep(&command, "|");
-    printf("%s[]\n%s[]\n", command, command2);
-}
 
 //helper function for using execvp
 void parseArgs(char *line, char **args) {
@@ -29,6 +20,16 @@ void parseArgs(char *line, char **args) {
 void executeCommand(char *command, int input, int output) {
     char *args[100];
     parseArgs(strdup(command), args);
+
+    if (!strcmp(args[0], "cd")) {
+        chdir(args[1]);
+        return;
+    }
+
+    if (!strcmp(args[0], "exit")) {
+        exit(0);
+    }
+
     pid_t p = fork();
     if (p == 0) {
         dup2(input, STDIN_FILENO);
@@ -36,8 +37,7 @@ void executeCommand(char *command, int input, int output) {
         execvp(args[0], args);
         exit(0);
     }
-    int status;
-    wait(&status);
+    wait(NULL);
 }
 
 char *redirectStdout(char *command, int output) {
