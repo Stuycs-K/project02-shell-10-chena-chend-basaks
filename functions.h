@@ -1,6 +1,6 @@
 #ifndef FUNCTIONS_H
 #define FUNCTIONS_H
-static void sigs(int signo);
+
 static int quit(int val);
 char *trim(char *str);
 void parseArgs(char *line, char **arg_ary);
