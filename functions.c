@@ -8,7 +8,7 @@
 #include "functions.h"
 #include <signal.h>
 
-
+//Removes the first and last space of a string and returns that string
 char *trim(char *str) {
     if (*str == ' ') {
         str++;
@@ -58,7 +58,11 @@ void executeCommand(char *command, int input, int output) {
     char *commandCopy = strdup(command);
     parseArgs(trim(commandCopy), args);
     if (!strcmp(args[0], "cd")) {
-        chdir(args[1]);
+        if (args[1]) {
+            chdir(args[1]);
+        } else {
+            chdir(getenv("HOME"));
+        }
         return;
     }
     if (!strcmp(args[0], "exit")) {
