@@ -17,7 +17,7 @@ int main () {
 		getcwd(pathBuff, 255);
 		
 		printf("%s$ ", pathBuff);
-				
+		fflush(stdout);
 		
 	  char* commandBuffer;
 
@@ -32,7 +32,7 @@ int main () {
 	
 	while((commandBuffer = strsep(&inputBuffer, ";"))){
 			//function to execute a command
-					printf("\n");
+					
 					parseCommand(commandBuffer);
 					
 		}
