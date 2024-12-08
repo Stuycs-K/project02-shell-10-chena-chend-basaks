@@ -27,6 +27,7 @@ void parseArgs(char *line, char **args) {
         args[i++] = strsep(&line, " ");
     }
     args[i] = NULL;
+   
 }
 
 void parseCommand(char *command) {
@@ -36,7 +37,7 @@ void parseCommand(char *command) {
     }
     char *command2 = command;
     command = strsep(&command2, "|");
-
+    
     if (command2) {
         int pipeIO[2];
         pipe(pipeIO);
@@ -48,6 +49,7 @@ void parseCommand(char *command) {
         executeCommand(trim(command), STDIN_FILENO, STDOUT_FILENO);
     }
     wait(NULL);
+    
 }
 
 //executing a single command
@@ -68,6 +70,7 @@ void executeCommand(char *command, int input, int output) {
         output = redirectStdout(command, output);
         parseArgs(trim(command), args);
         dup2(input, STDIN_FILENO);
+	//parses \n?
         dup2(output, STDOUT_FILENO);
         execvp(args[0], args);
         exit(0);
