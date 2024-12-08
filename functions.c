@@ -70,8 +70,8 @@ void executeCommand(char *command, int input, int output) {
         exit(0);
     }
     if (fork() == 0) {
-        input = redirectStdin(command, input);
         output = redirectStdout(command, output);
+        input = redirectStdin(command, input);
         parseArgs(trim(command), args);
         dup2(input, STDIN_FILENO);
         dup2(output, STDOUT_FILENO);
