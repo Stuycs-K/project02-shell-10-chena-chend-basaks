@@ -20,16 +20,17 @@ char *trim(char *str) {
     return str;
 }
 
-//helper function for using execvp
+//Puts line into args as a space-separated string array for execvp
 void parseArgs(char *line, char **args) {
     int i = 0;
     while (line) {
         args[i++] = strsep(&line, " ");
     }
     args[i] = NULL;
-   
 }
 
+//If there is a pipe, splits the command into 2 commands and runs executeCommand for each of them and passes pipe()'s file descriptors as arguments
+//Otherwise, just executes 1 command
 void parseCommand(char *command) {
     int end = strlen(command)-1;
     if (command[end] == '\n') {
@@ -49,10 +50,10 @@ void parseCommand(char *command) {
         executeCommand(trim(command), STDIN_FILENO, STDOUT_FILENO);
     }
     wait(NULL);
-    
 }
 
-//executing a single command
+//executes a single command: first checks for special commands, then makes a child process and execvp's it
+//input and output are assumed to be stdin, stdout, or the pipe, which may get updated by the redirect functions
 void executeCommand(char *command, int input, int output) {
     char *args[100];
     char *commandCopy = strdup(command);
@@ -79,6 +80,7 @@ void executeCommand(char *command, int input, int output) {
     }
 }
 
+//If there is a "<" in the command, it opens the input file, returns its descriptor, and edits the command
 int redirectStdin(char *command, int input) {
     char *inputFile = command;
     //removes everything after the < in command
@@ -89,6 +91,7 @@ int redirectStdin(char *command, int input) {
     return input;
 }
 
+//ditto
 int redirectStdout(char *command, int output) {
     char *outputFile = command;
     //removes everything after the > in command
