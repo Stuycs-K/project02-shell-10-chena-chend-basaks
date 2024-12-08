@@ -59,7 +59,6 @@ void executeCommand(char *command, int input, int output) {
     parseArgs(trim(commandCopy), args);
     if (!strcmp(args[0], "cd")) {
         chdir(args[1]);
-        executeCommand("ls", STDIN_FILENO, STDOUT_FILENO);
         return;
     }
     if (!strcmp(args[0], "exit")) {
@@ -70,7 +69,6 @@ void executeCommand(char *command, int input, int output) {
         output = redirectStdout(command, output);
         parseArgs(trim(command), args);
         dup2(input, STDIN_FILENO);
-	//parses \n?
         dup2(output, STDOUT_FILENO);
         execvp(args[0], args);
         exit(0);
