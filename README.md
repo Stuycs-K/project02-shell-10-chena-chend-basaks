@@ -11,10 +11,10 @@ Our Shell Features:
 5. Redirection of the output of a command to the input of another(command | command)
 
 Our function headers:
-char *trim(char *str);
-void parseArgs(char *line, char **arg_ary);
-void parseCommand(char *command);
-void executeCommand(char *command, int input, int output);
-int redirectStdin(char *command, int input);
-int redirectStdout(char *command, int output);
+1. char *trim(char *str);
+2. void parseArgs(char *line, char **arg_ary);
+3. void parseCommand(char *command);
+4. void executeCommand(char *command, int input, int output);
+5. int redirectStdin(char *command, int input);
+6. int redirectStdout(char *command, int output);
 
